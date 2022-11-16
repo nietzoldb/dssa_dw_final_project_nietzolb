@@ -12,6 +12,13 @@ logging.basicConfig(level=logging.INFO, filename = "debug.logs")
 logger = logging.getLogger(__name__)
 
 
+def create_cursor(path:str, section:str) -> Cursor:
+    client = PostgresClient()
+    conn = client.connect_from_config(path, section, autocommit=True)
+    cursor = conn.cursor()
+    return cursor
+
+
 def setup(engine, schema_name):
     # Connect to the database, this is done by importing the engine above
 
