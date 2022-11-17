@@ -18,19 +18,25 @@ f = open('C:/Users/bniet/github-classroom/DSSA-Stockton-University/dssa_dw_final
 config = json.load(f)
 path=config['sqltools.connections'][0]
 print(path)
-dbname=((path['database']))
-usrname=((path['username']))
-pwd=((path['password']))
-conport=path['port']
-conhost=path['server']
+
+dbname=path.get('database')
+usrname=path.get('username')
+pwd=path.get('password')
+conport=path.get('port')
+print(conport)
+conhost=path.get('server')
+print(conhost)
+
 # Closing file
 f.close()
 
 dbconpar='dssa_dw_final_project_nietzolb/.config/settings.json'
 
 def setup(path):
-    conn = psy.connect("dbname=dbname, user=usrname, password=pwd")
+    conn = psy.connect(dbname=dbname, user=usrname, password=pwd, host=conhost, port=conport)
     cur = conn.cursor()
+    cur.close()
+    conn.close()
     return cur
 
 setup(path)
@@ -44,10 +50,12 @@ def extract():
         return
     def relationships():
         return
+
 def transform():
     return
 def load():
     return    
+
 def teardown():
     cur.close()
     conn.close()  
