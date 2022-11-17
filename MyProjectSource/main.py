@@ -1,12 +1,70 @@
 import logging
 import pandas as pd
-import models.sample as models
-from database.dw_session import dwEngine
-from database.oltp_session import oltpEngine
-from sqlalchemy.schema import CreateSchema
+#from tasks import Tasks 
+import psycopg2 as psy
+import sqlalchemy
+
+import json
+#import models.sample as models
+#from database.dw_session import dwEngine
+#from database.oltp_session import oltpEngine
+# Python program to read
+# json file
 
 
-import tasks and 
+f = open('C:/Users/bniet/github-classroom/DSSA-Stockton-University/dssa_dw_final_project_nietzolb/.config/settings.json')
+# returns JSON object as
+# a dictionary
+config = json.load(f)
+path=config['sqltools.connections'][0]
+print(path)
+dbname=((path['database']))
+usrname=((path['username']))
+pwd=((path['password']))
+conport=path['port']
+conhost=path['server']
+# Closing file
+f.close()
+
+dbconpar='dssa_dw_final_project_nietzolb/.config/settings.json'
+
+def setup(path):
+    conn = psy.connect("dbname=dbname, user=usrname, password=pwd")
+    cur = conn.cursor()
+    return cur
+
+setup(path)
+
+def extract():
+    def schema():
+        return
+    def tables():
+        return
+    def fields():
+        return
+    def relationships():
+        return
+def transform():
+    return
+def load():
+    return    
+def teardown():
+    cur.close()
+    conn.close()  
+    
+    return        
+    
+
+if __name__ == "__main__":
+    main()
+    
+    
+
+"""
+
+task1=tasks.Task(create_cursor)
+task1.run(path=DbConfig, section='postgresql')
+
 
 logging.basicConfig(level=logging.INFO, filename = "debug.logs")
 logger = logging.getLogger(__name__)
@@ -131,6 +189,5 @@ def main() -> None:
     # Close any open connections
     teardown(oltpEngine)
     teardown(dwEngine)
+"""
     
-if __name__ == "__main__":
-    main()
